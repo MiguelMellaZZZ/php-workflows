@@ -1,28 +1,10 @@
-name: CI Reutilizável PHP Login
+name: CI via Workflow Reutilizável
 
 on:
-  workflow_call:
-    inputs:
-      php-version:
-        required: false
-        type: string
-        default: '8.2'
+  push:
+    branches: [ master ]
+  pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
-
-      - name: Configurar PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ inputs.php-version }}
-
-      - name: Instalar dependências
-        run: |
-          sudo apt-get install -y php-cli php-mbstring
-          echo "Dependências instaladas."
-
+  login:
+    uses: MiguelMellaZZZ/php-workflows/.github/workflows/login.yml@master
